@@ -1,6 +1,6 @@
 package com.bookmaker.odds.service.container.initializer;
 
-import com.bookmaker.odds.service.application.service.port.input.OddsApplicationService;
+import com.bookmaker.odds.service.application.service.port.input.service.OddsApplicationService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;

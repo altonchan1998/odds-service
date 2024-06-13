@@ -4,6 +4,7 @@ import com.bookmaker.odds.service.domain.calculator.odds.OddsCalculator;
 import com.bookmaker.odds.service.domain.calculator.probability.ProbabilityCalculator;
 import com.bookmaker.odds.service.domain.entity.interfaces.OddsAdjustable;
 import com.bookmaker.odds.service.domain.enums.MarketType;
+import com.bookmaker.odds.service.domain.enums.MatchStatus;
 import com.bookmaker.odds.service.domain.enums.OddsStatus;
 import com.bookmaker.odds.service.domain.enums.OddsVendor;
 import com.bookmaker.odds.service.domain.factory.OddsCalculatorFactory;
@@ -15,23 +16,26 @@ import lombok.Setter;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 
 @Setter
 @Getter
-public class AdjustableMarket extends Market implements OddsAdjustable {
+public class OddsAdjustableMarket extends Market implements OddsAdjustable {
     private final OddsVendor oddsVendor;
-    private final Juice desiredJuice;
+    private final Juice desiredMatchJuice;
+    private final Juice desiredTournamentJuice;
     private OddsStatus oddsStatus;
 
-    public AdjustableMarket(Market market, OddsVendor oddsVendor, Juice desiredJuice, OddsStatus oddsStatus) {
-        this(market.getCode(), market.getMatch(), market.getMarketType(), market.getBettingOptions(), oddsVendor, desiredJuice, oddsStatus);
+    public OddsAdjustableMarket(Market market, OddsVendor oddsVendor, Juice desiredMatchJuice, Juice desiredTournamentJuice) {
+        this(market.getCode(), market.getMatch(),  market.getMarketType(), market.getBettingOptions(), oddsVendor, desiredMatchJuice, desiredTournamentJuice);
     }
 
-    public AdjustableMarket(String code, Match match, MarketType marketType, List<BettingOption> bettingOptions, OddsVendor oddsVendor, Juice desiredJuice, OddsStatus oddsStatus) {
+    public OddsAdjustableMarket(String code, Match match, MarketType marketType, List<BettingOption> bettingOptions, OddsVendor oddsVendor, Juice desiredMatchJuice, Juice desiredTournamentJuice) {
         super(code, match, marketType, bettingOptions);
         this.oddsVendor = oddsVendor;
-        this.desiredJuice = desiredJuice;
-        this.oddsStatus = oddsStatus;
+        this.desiredMatchJuice = desiredMatchJuice;
+        this.desiredTournamentJuice = desiredTournamentJuice;
+        this.oddsStatus = OddsStatus.RAW;
     }
 
     @Override
@@ -56,6 +60,12 @@ public class AdjustableMarket extends Market implements OddsAdjustable {
         applyOdds(adjustedOdds);
 
         setOddsStatus(OddsStatus.ADJUSTED);
+    }
+
+    private Juice getDesiredJuice() {
+        return Objects.nonNull(desiredMatchJuice)
+                ? desiredMatchJuice
+                : desiredTournamentJuice;
     }
 
     private void applyOdds(List<Odds> odds) {

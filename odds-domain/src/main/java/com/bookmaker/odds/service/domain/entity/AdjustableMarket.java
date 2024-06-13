@@ -24,25 +24,23 @@ public class AdjustableMarket extends Market implements OddsAdjustable {
     private OddsStatus oddsStatus;
 
     public AdjustableMarket(Market market, OddsVendor oddsVendor, Juice desiredJuice, OddsStatus oddsStatus) {
-        super(market.getCode(), market.getMatch(), market.getMarketType(), market.getBettingOptions());
-        this.oddsVendor = oddsVendor;
-        this.desiredJuice = desiredJuice;
-        this.oddsStatus = oddsStatus;
+        this(market.getCode(), market.getMatch(), market.getMarketType(), market.getBettingOptions(), oddsVendor, desiredJuice, oddsStatus);
     }
 
-    public AdjustableMarket(String code, Match match, OddsVendor oddsVendor, Juice desiredJuice, OddsStatus oddsStatus, MarketType marketType, List<BettingOption> bettingOptions) {
+    public AdjustableMarket(String code, Match match, MarketType marketType, List<BettingOption> bettingOptions, OddsVendor oddsVendor, Juice desiredJuice, OddsStatus oddsStatus) {
         super(code, match, marketType, bettingOptions);
         this.oddsVendor = oddsVendor;
         this.desiredJuice = desiredJuice;
         this.oddsStatus = oddsStatus;
     }
 
+    @Override
     public void adjustOdds() {
         if (getOddsStatus() == OddsStatus.ADJUSTED) return;
 
-        Juice desiredJuice = getDesiredJuice();
-
         OddsCalculator calculator = OddsCalculatorFactory.getCalculator(getMarketType());
+
+        Juice desiredJuice = getDesiredJuice();
 
         // Sort betting options by odds in ascending order
         getBettingOptions().sort(Comparator.comparing(o -> o.getOdds().getValue()));
@@ -55,12 +53,17 @@ public class AdjustableMarket extends Market implements OddsAdjustable {
         List<Odds> adjustedOdds = calculator
                 .calculate(originalOdds, desiredJuice);
 
+        applyOdds(adjustedOdds);
+
+        setOddsStatus(OddsStatus.ADJUSTED);
+    }
+
+    private void applyOdds(List<Odds> odds) {
         for (int i = 0; i < getBettingOptions().size(); i++) {
-            getBettingOptions().get(i).setOdds(adjustedOdds.get(i));
+            getBettingOptions().get(i).setOdds(odds.get(i));
         }
 
         updateProbability();
-        setOddsStatus(OddsStatus.ADJUSTED);
     }
 
     private void updateProbability() {

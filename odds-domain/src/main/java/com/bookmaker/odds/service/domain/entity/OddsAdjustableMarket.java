@@ -4,7 +4,6 @@ import com.bookmaker.odds.service.domain.calculator.odds.OddsCalculator;
 import com.bookmaker.odds.service.domain.calculator.probability.ProbabilityCalculator;
 import com.bookmaker.odds.service.domain.entity.interfaces.OddsAdjustable;
 import com.bookmaker.odds.service.domain.enums.MarketType;
-import com.bookmaker.odds.service.domain.enums.MatchStatus;
 import com.bookmaker.odds.service.domain.enums.OddsStatus;
 import com.bookmaker.odds.service.domain.enums.OddsVendor;
 import com.bookmaker.odds.service.domain.factory.OddsCalculatorFactory;

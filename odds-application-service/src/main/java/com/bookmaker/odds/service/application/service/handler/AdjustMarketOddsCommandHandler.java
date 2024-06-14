@@ -1,12 +1,12 @@
 package com.bookmaker.odds.service.application.service.handler;
 
-import com.bookmaker.odds.service.application.service.dto.AdjustMarketOddsCommand;
-import com.bookmaker.odds.service.application.service.dto.AdjustMarketOddsResponse;
+import com.bookmaker.odds.service.application.service.dto.command.AdjustMarketOddsCommand;
+import com.bookmaker.odds.service.application.service.dto.response.AdjustMarketOddsResponse;
 import com.bookmaker.odds.service.application.service.mapper.OddsDataMapper;
 import com.bookmaker.odds.service.application.service.port.output.InnoMatchRepository;
 import com.bookmaker.odds.service.application.service.port.output.JuiceRepository;
 import com.bookmaker.odds.service.domain.OddsDomainService;
-import com.bookmaker.odds.service.domain.entity.Market;
+import com.bookmaker.odds.service.domain.valueobject.Market;
 import com.bookmaker.odds.service.domain.entity.InnoMatch;
 import com.bookmaker.odds.service.domain.enums.MatchStatus;
 import com.bookmaker.odds.service.domain.exception.InnoMatchNotFoundException;
@@ -25,7 +25,7 @@ public class AdjustMarketOddsCommandHandler implements CommandHandler<AdjustMark
     public AdjustMarketOddsResponse handle(AdjustMarketOddsCommand command) {
         Market market = oddsDataMapper.toMarket(command);
 
-        InnoMatch innoMatch = innoMatchRepository.findByMatchInnoId(market.getInnoMatchId(), MatchStatus.fromValue(command.isInPlay()))
+        InnoMatch innoMatch = innoMatchRepository.findByMatchInnoId(market.getInnoMatchId(), MatchStatus.fromValue(command.getInPlay()))
                 .orElseThrow(() -> new InnoMatchNotFoundException("InnoMatch with iid: " + command.getIid() + " not found"));
 
         Juice desiredMatchJuice = juiceRepository.findDesiredMatchJuiceByInnoMatch(innoMatch)

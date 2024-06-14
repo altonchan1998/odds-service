@@ -1,23 +1,23 @@
-package com.bookmaker.odds.service.domain.entity;
+package com.bookmaker.odds.service.domain.valueobject;
 
 import com.bookmaker.odds.service.domain.calculator.odds.OddsCalculator;
 import com.bookmaker.odds.service.domain.calculator.probability.ProbabilityCalculator;
 import com.bookmaker.odds.service.domain.entity.interfaces.OddsAdjustable;
 import com.bookmaker.odds.service.domain.factory.OddsCalculatorFactory;
 import com.bookmaker.odds.service.domain.factory.ProbabilityCalculatorFactory;
+import com.bookmaker.odds.service.domain.valueobject.BettingOption;
 import com.bookmaker.odds.service.domain.valueobject.Juice;
 import com.bookmaker.odds.service.domain.valueobject.Odds;
 import com.bookmaker.odds.service.domain.valueobject.id.InnoMatchId;
 import lombok.Getter;
 import com.bookmaker.odds.service.domain.enums.MarketType;
-import com.bookmaker.odds.service.domain.valueobject.id.MarketId;
 
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 
 @Getter
-public class Market extends AggregateRoot<MarketId> implements OddsAdjustable {
+public class Market implements OddsAdjustable {
     private final String code;
     private final InnoMatchId innoMatchId;
     private final MarketType marketType;

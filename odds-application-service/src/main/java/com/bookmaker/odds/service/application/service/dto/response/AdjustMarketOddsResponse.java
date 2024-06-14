@@ -1,6 +1,6 @@
-package com.bookmaker.odds.service.application.service.dto;
+package com.bookmaker.odds.service.application.service.dto.response;
 
-import com.bookmaker.odds.service.domain.entity.BettingOption;
+import com.bookmaker.odds.service.domain.valueobject.BettingOption;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;

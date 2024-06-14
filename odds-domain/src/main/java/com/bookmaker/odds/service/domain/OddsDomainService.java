@@ -1,6 +1,6 @@
 package com.bookmaker.odds.service.domain;
 
-import com.bookmaker.odds.service.domain.entity.Market;
+import com.bookmaker.odds.service.domain.valueobject.Market;
 import com.bookmaker.odds.service.domain.entity.ProbabilityOddsReference;
 import com.bookmaker.odds.service.domain.valueobject.Juice;
 

@@ -15,6 +15,6 @@ public class OddsDomainServiceImpl implements OddsDomainService {
 
     @Override
     public void adjustOdds(Market market, Juice desiredMatchJuice, Juice desiredTournamentJuice) {
-        // TODO
+        market.adjustOdds(desiredMatchJuice, desiredTournamentJuice);
     }
 }

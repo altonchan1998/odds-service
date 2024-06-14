@@ -1,6 +1,7 @@
 package com.bookmaker.odds.service.application.service.dto.command;
 
 import com.bookmaker.odds.service.application.service.dto.Command;
+import com.bookmaker.odds.service.domain.enums.MarketType;
 import com.bookmaker.odds.service.domain.valueobject.BettingOption;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,5 +19,6 @@ public class AdjustMarketOddsCommand implements Command {
     private final String vendorCode;
     private final Boolean inPlay;
     private final String marketCode;
+    private final MarketType marketType;
     private final List<BettingOption> bettingOptions;
 }

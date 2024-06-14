@@ -12,7 +12,7 @@ import java.util.Optional;
 public class ProbabilityCalculatorFactory {
     private ProbabilityCalculatorFactory() {}
 
-    private static EnumMap<MarketType, ProbabilityCalculator> map = new EnumMap<>(MarketType.class);
+    private static final EnumMap<MarketType, ProbabilityCalculator> map = new EnumMap<>(MarketType.class);
 
     public static ProbabilityCalculator getBettingOddsModifier(MarketType marketType) {
         return Optional.ofNullable(map.get(marketType))
@@ -22,5 +22,6 @@ public class ProbabilityCalculatorFactory {
     static {
         map.put(MarketType.TWO_WAY, TwoWayMarketProbabilityCalculator.getInstance());
         map.put(MarketType.THREE_WAY, ThreeWayMarketProbabilityCalculator.getInstance());
+        map.put(MarketType.INFINITE_WAY, ThreeWayMarketProbabilityCalculator.getInstance());
     }
 }

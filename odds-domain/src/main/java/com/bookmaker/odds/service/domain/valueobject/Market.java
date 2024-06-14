@@ -11,7 +11,7 @@ import com.bookmaker.odds.service.domain.enums.MarketType;
 
 import java.util.Comparator;
 import java.util.List;
-import java.util.Objects;
+import java.util.Optional;
 
 @Getter
 public class Market implements OddsAdjustable {
@@ -61,9 +61,8 @@ public class Market implements OddsAdjustable {
 
 
     private Juice getDesiredJuice(Juice desiredMatchJuice, Juice desiredTournamentJuice) {
-        return Objects.nonNull(desiredMatchJuice)
-                ? desiredMatchJuice
-                : desiredTournamentJuice;
+        return Optional.ofNullable(desiredMatchJuice)
+                .orElse(desiredTournamentJuice);
     }
 
     private void applyOdds(List<Odds> odds) {

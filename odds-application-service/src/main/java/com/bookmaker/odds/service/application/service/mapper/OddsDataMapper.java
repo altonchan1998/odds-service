@@ -18,7 +18,7 @@ public class OddsDataMapper {
     public Market toMarket(AdjustMarketOddsCommand command) {
         String marketCode = command.getMarketCode();
         InnoMatchId innoMatchId = new InnoMatchId(command.getIid());
-        MarketType marketType = MarketType.getByMarketCode(marketCode);
+        MarketType marketType = command.getMarketType();
         List<BettingOption> bettingOptions = command.getBettingOptions();
 
         return new Market(marketCode, innoMatchId, marketType, bettingOptions);

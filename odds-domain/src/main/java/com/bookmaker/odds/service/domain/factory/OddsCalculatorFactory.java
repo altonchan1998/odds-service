@@ -7,7 +7,6 @@ import com.bookmaker.odds.service.domain.calculator.odds.TwoWayMarketOddsCalcula
 import com.bookmaker.odds.service.domain.enums.MarketType;
 
 import java.util.EnumMap;
-import java.util.Optional;
 
 public class OddsCalculatorFactory {
     private OddsCalculatorFactory() {}
@@ -15,13 +14,9 @@ public class OddsCalculatorFactory {
     private static final EnumMap<MarketType, OddsCalculator> map = new EnumMap<>(MarketType.class);
 
     public static OddsCalculator getCalculator(MarketType marketType) {
-        return Optional.ofNullable(map.get(marketType))
-                .orElseThrow();
-    }
-
-    static {
-        map.put(MarketType.TWO_WAY, TwoWayMarketOddsCalculator.getInstance());
-        map.put(MarketType.THREE_WAY, ThreeWayMarketOddsCalculator.getInstance());
-        map.put(MarketType.INFINITE_WAY, ThreeWayMarketOddsCalculator.getInstance());
+        return switch (marketType) {
+            case TWO_WAY -> TwoWayMarketOddsCalculator.getInstance();
+            case THREE_WAY, INFINITE_WAY -> ThreeWayMarketOddsCalculator.getInstance();
+        };
     }
 }

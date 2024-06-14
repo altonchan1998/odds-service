@@ -5,7 +5,10 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
+@Data
 @Builder
 @AllArgsConstructor
-public record ErrorDTO(String code, String message) {
+public class ErrorDTO {
+    private final String code;
+    private final String message;
 }

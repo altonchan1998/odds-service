@@ -11,4 +11,9 @@ public class Odds {
     public Odds(BigDecimal value) {
         this.value = value;
     }
+
+
+    public boolean isLocked() {
+        return value.equals(BigDecimal.ZERO);
+    }
 }

@@ -12,7 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 public class AdjustMarketOddsCommand implements Command {
     private Long sid;
-    private Long id;
+    private Long iid;
     private Long mid;
     private String vendor;
     private boolean isInPlay;

@@ -5,9 +5,6 @@ import com.bookmaker.odds.service.domain.calculator.probability.ProbabilityCalcu
 import com.bookmaker.odds.service.domain.entity.interfaces.OddsAdjustable;
 import com.bookmaker.odds.service.domain.factory.OddsCalculatorFactory;
 import com.bookmaker.odds.service.domain.factory.ProbabilityCalculatorFactory;
-import com.bookmaker.odds.service.domain.valueobject.BettingOption;
-import com.bookmaker.odds.service.domain.valueobject.Juice;
-import com.bookmaker.odds.service.domain.valueobject.Odds;
 import com.bookmaker.odds.service.domain.valueobject.id.InnoMatchId;
 import lombok.Getter;
 import com.bookmaker.odds.service.domain.enums.MarketType;
@@ -30,7 +27,7 @@ public class Market implements OddsAdjustable {
         this.bettingOptions = bettingOptions;
     }
 
-    public boolean isLocked() {
+    public boolean isMarketLocked() {
         for (BettingOption option : getBettingOptions()) {
             if (!option.getOdds().isLocked()) return false;
         }
@@ -40,7 +37,7 @@ public class Market implements OddsAdjustable {
 
     @Override
     public void adjustOdds(Juice desiredMatchJuice, Juice desiredTournamentJuice) {
-        if (isLocked()) {
+        if (isMarketLocked()) {
             return;
         }
 

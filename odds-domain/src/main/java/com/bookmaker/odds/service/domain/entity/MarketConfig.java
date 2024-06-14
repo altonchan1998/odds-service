@@ -20,7 +20,8 @@ public class MarketConfig extends BaseEntity<MarketConfigId> {
     private final Set<String> bettingOptionCodes;
 
 
-    public MarketConfig(SportId sid, MarketType marketType, boolean isOutcomeInList, String marketCode, Set<String> bettingOptionCodes) {
+    public MarketConfig(MarketConfigId marketConfigId, SportId sid, MarketType marketType, boolean isOutcomeInList, String marketCode, Set<String> bettingOptionCodes) {
+        super.setId(marketConfigId);
         this.sid = sid;
         this.marketType = marketType;
         this.isOutcomeInList = isOutcomeInList;

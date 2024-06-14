@@ -15,7 +15,8 @@ public class ProbabilityOddsReference extends BaseEntity<ProbabilityOddsReferenc
     private final Probability upperProbability;
     private final Probability lowerProbability;
 
-    public ProbabilityOddsReference(Juice juice, Odds upperOdds, Odds lowerOdds, Probability upperProbability, Probability lowerProbability) {
+    public ProbabilityOddsReference(ProbabilityOddsReferenceId id, Juice juice, Odds upperOdds, Odds lowerOdds, Probability upperProbability, Probability lowerProbability) {
+        super.setId(id);
         this.juice = juice;
         this.upperOdds = upperOdds;
         this.lowerOdds = lowerOdds;
